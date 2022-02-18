@@ -211,8 +211,11 @@ public class PushNotification implements IPushNotification {
     private void notifyOpenedToJS() {
         Bundle response = new Bundle();
         response.putBundle("notification", mNotificationProps.asBundle());
+        Bundle fbResponse = new Bundle();
+        fbResponse.putBundle("data", mNotificationProps.asBundle());
 
         mJsIOHelper.sendEventToJS(NOTIFICATION_OPENED_EVENT_NAME, response, mAppLifecycleFacade.getRunningReactContext());
+        mJsIOHelper.sendEventToJS("rnfb_messaging_notification_opened", fbResponse, mAppLifecycleFacade.getRunningReactContext());
     }
 
     protected void launchOrResumeApp() {
